@@ -17,7 +17,7 @@ class SynthAi < Formula
       #!/bin/bash
       set -euo pipefail
       ROOT="#{libexec}"
-      export OPENCODE_DEV_PATH="#{Formula["opencode-synth"].opt_libexec}"
+      export OPENCODE_CMD="#{Formula["opencode-synth"].opt_bin}/opencode-synth"
       export OPENCODE_BUN_PATH="#{Formula["oven-sh/bun/bun"].opt_bin}/bun"
       export UV_PROJECT_ENVIRONMENT="${HOME}/.synth-ai/venv"
       exec uv run --project "$ROOT" synth-ai "$@"
