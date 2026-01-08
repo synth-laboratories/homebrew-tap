@@ -17,7 +17,8 @@ class OpencodeSynth < Formula
       if [ ! -d "$ROOT/node_modules" ]; then
         (cd "$ROOT" && bun install)
       fi
-      exec bun "$ROOT/packages/opencode/src/index.ts" "$@"
+      TS_CONFIG="$ROOT/packages/opencode/tsconfig.json"
+      exec bun --preload @opentui/solid/preload --tsconfig-override "$TS_CONFIG" "$ROOT/packages/opencode/src/index.ts" "$@"
     EOS
   end
 
