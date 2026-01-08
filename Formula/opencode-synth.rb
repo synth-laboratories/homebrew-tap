@@ -14,11 +14,12 @@ class OpencodeSynth < Formula
       #!/bin/bash
       set -euo pipefail
       ROOT="#{libexec}"
+      BUN="#{Formula["oven-sh/bun/bun"].opt_bin}/bun"
       if [ ! -d "$ROOT/node_modules" ]; then
-        (cd "$ROOT" && bun install)
+        (cd "$ROOT" && HUSKY=0 "$BUN" install)
       fi
       TS_CONFIG="$ROOT/packages/opencode/tsconfig.json"
-      exec bun --preload @opentui/solid/preload --tsconfig-override "$TS_CONFIG" "$ROOT/packages/opencode/src/index.ts" "$@"
+      exec "$BUN" --preload @opentui/solid/preload --tsconfig-override "$TS_CONFIG" "$ROOT/packages/opencode/src/index.ts" "$@"
     EOS
   end
 
