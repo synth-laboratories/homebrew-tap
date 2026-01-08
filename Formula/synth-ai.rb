@@ -9,7 +9,7 @@ class SynthAi < Formula
   depends_on "oven-sh/bun/bun"
   depends_on "python@3.11"
   depends_on "uv"
-  depends_on "opencode"
+  depends_on "opencode-synth"
 
   def install
     libexec.install Dir["*"]
@@ -17,6 +17,7 @@ class SynthAi < Formula
       #!/bin/bash
       set -euo pipefail
       ROOT="#{libexec}"
+      export OPENCODE_DEV_PATH="#{Formula["opencode-synth"].opt_libexec}"
       export UV_PROJECT_ENVIRONMENT="${HOME}/.synth-ai/venv"
       exec uv run --project "$ROOT" synth-ai "$@"
     EOS

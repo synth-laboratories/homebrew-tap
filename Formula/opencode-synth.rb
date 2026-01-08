@@ -1,4 +1,4 @@
-class Opencode < Formula
+class OpencodeSynth < Formula
   desc "OpenCode CLI (Synth fork)"
   homepage "https://github.com/synth-laboratories/opencode"
   url "https://github.com/synth-laboratories/opencode/archive/947b864d96cbdeb4206920f1a7ed29305602dbc8.tar.gz"
@@ -10,7 +10,7 @@ class Opencode < Formula
 
   def install
     libexec.install Dir["*"]
-    (bin/"opencode").write <<~EOS
+    (bin/"opencode-synth").write <<~EOS
       #!/bin/bash
       set -euo pipefail
       ROOT="#{libexec}"
@@ -29,6 +29,6 @@ class Opencode < Formula
   end
 
   test do
-    system "#{bin}/opencode", "--version"
+    system "#{bin}/opencode-synth", "--version"
   end
 end
