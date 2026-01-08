@@ -6,7 +6,7 @@ class Opencode < Formula
   version "1.1.6"
   license "MIT"
 
-  depends_on "bun"
+  depends_on "oven-sh/bun/bun"
 
   def install
     libexec.install Dir["*"]

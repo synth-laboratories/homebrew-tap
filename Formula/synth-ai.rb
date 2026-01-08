@@ -6,7 +6,7 @@ class SynthAi < Formula
   version "0.4.7"
   license "MIT"
 
-  depends_on "bun"
+  depends_on "oven-sh/bun/bun"
   depends_on "python@3.11"
   depends_on "uv"
   depends_on "opencode"
