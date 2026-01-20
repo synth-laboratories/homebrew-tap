@@ -2,7 +2,7 @@ class SynthAiTui < Formula
   desc "Synth AI TUI - Terminal interface for Synth AI"
   homepage "https://github.com/synth-laboratories/synth-ai"
   url "https://github.com/synth-laboratories/synth-ai/archive/tui-v0.1.0.tar.gz"
-  sha256 "8d0438b368a24fe89310cb4961c90c940fa6f6c1d975353d5af37b819411c3f7"
+  sha256 "3884098226012970e3ed4890f9744074c80479589c4311375db1e93f5123eaff"
   version "0.1.0"
   license "MIT"
 
