@@ -1,23 +1,40 @@
 class SynthAiTui < Formula
   desc "Synth AI TUI - Terminal interface for Synth AI"
   homepage "https://github.com/synth-laboratories/synth-ai"
+  url "https://github.com/synth-laboratories/synth-ai/archive/tui-v0.1.0.tar.gz"
+  sha256 "8d0438b368a24fe89310cb4961c90c940fa6f6c1d975353d5af37b819411c3f7"
   version "0.1.0"
+  license "MIT"
 
-  on_macos do
-    if Hardware::CPU.arm?
-      url "https://github.com/synth-laboratories/synth-ai/releases/download/tui-v0.1.0/synth-ai-tui-darwin-arm64.tar.gz"
-      sha256 "277f25680e468af9c18f9a27ba6a3f603ef3a15e601ae10cb4c29471d8032eca"
-    else
-      url "https://github.com/synth-laboratories/synth-ai/releases/download/tui-v0.1.0/synth-ai-tui-darwin-x64.tar.gz"
-      sha256 "4769fcf94147cf242bab08ae3ac2da62ddc148a71dba4ad76f9ab056a01d74d0"
-    end
-  end
+  depends_on "oven-sh/bun/bun"
 
   def install
-    bin.install "synth-ai-tui"
+    # Install only the tui directory
+    libexec.install "tui/app" => "app"
+    libexec.install "tui/opencode_config" => "opencode_config"
+
+    (bin/"synth-ai-tui").write <<~EOS
+      #!/bin/bash
+      set -euo pipefail
+      ROOT="#{libexec}/app"
+      BUN="#{Formula["oven-sh/bun/bun"].opt_bin}/bun"
+      if [ ! -d "$ROOT/node_modules" ]; then
+        echo "Installing TUI dependencies..." >&2
+        (cd "$ROOT" && "$BUN" install)
+      fi
+      exec "$BUN" "$ROOT/src/index.ts" "$@"
+    EOS
+  end
+
+  def caveats
+    <<~EOS
+      The first run installs JavaScript dependencies into:
+        #{libexec}/app/node_modules
+    EOS
   end
 
   test do
-    assert_match "synth", shell_output("#{bin}/synth-ai-tui --help 2>&1", 1)
+    # TUI requires a terminal, just check the script exists
+    assert_predicate bin/"synth-ai-tui", :exist?
   end
 end
