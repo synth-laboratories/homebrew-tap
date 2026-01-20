@@ -22,7 +22,8 @@ class SynthAiTui < Formula
         echo "Installing TUI dependencies..." >&2
         (cd "$ROOT" && "$BUN" install)
       fi
-      exec "$BUN" "$ROOT/src/index.ts" "$@"
+      TS_CONFIG="$ROOT/tsconfig.json"
+      exec "$BUN" --preload @opentui/solid/preload --tsconfig-override "$TS_CONFIG" "$ROOT/src/index.ts" "$@"
     EOS
   end
 
