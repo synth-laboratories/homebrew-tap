@@ -1,19 +1,18 @@
-class SynthAiTui < Formula
-  desc "Synth AI TUI - Terminal interface for Synth AI"
-  homepage "https://github.com/synth-laboratories/synth-ai"
-  url "https://github.com/synth-laboratories/synth-ai/archive/tui-v0.1.0.tar.gz"
-  sha256 "3884098226012970e3ed4890f9744074c80479589c4311375db1e93f5123eaff"
+class SynthTui < Formula
+  desc "Synth TUI - Terminal interface for Synth AI"
+  homepage "https://github.com/synth-laboratories/synth-tui"
+  url "https://github.com/synth-laboratories/synth-tui/archive/refs/tags/v0.1.0.tar.gz"
+  sha256 "680a514f3ba60f28ce2097becb78c6aa919895cab335ee457d17c672cd173ae5"
   version "0.1.0"
   license "MIT"
 
   depends_on "oven-sh/bun/bun"
 
   def install
-    # Install only the tui directory
-    libexec.install "tui/app" => "app"
-    libexec.install "tui/opencode_config" => "opencode_config"
+    libexec.install "app" => "app"
+    libexec.install "opencode_config" => "opencode_config"
 
-    (bin/"synth-ai-tui").write <<~EOS
+    (bin/"synth-tui").write <<~EOS
       #!/bin/bash
       set -euo pipefail
       ROOT="#{libexec}/app"
@@ -35,7 +34,6 @@ class SynthAiTui < Formula
   end
 
   test do
-    # TUI requires a terminal, just check the script exists
-    assert_predicate bin/"synth-ai-tui", :exist?
+    assert_predicate bin/"synth-tui", :exist?
   end
 end
