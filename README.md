@@ -1,5 +1,14 @@
 # Synth Laboratories Homebrew Tap
 
+## SDLC Usage (Internal Changes)
+
+When changing formulas as part of private repo release flow, run SDLC checks from `../synth-bazel` first:
+
+```bash
+cd ../synth-bazel
+./scripts/ci_dev_gate.sh --skip-integration
+```
+
 ## Install
 
 One command:
